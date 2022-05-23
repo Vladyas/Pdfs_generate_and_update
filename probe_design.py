@@ -32,7 +32,7 @@ class Ui_MainWindow(object):
         self.label = QLabel(self.centralwidget)
         self.label.setObjectName(u"label")
 
-        self.formLayout.setWidget(0, QFormLayout.SpanningRole, self.label)
+        self.formLayout.setWidget(0, QFormLayout.LabelRole, self.label)
 
         self.listView = QListView(self.centralwidget)
         self.listView.setObjectName(u"listView")
@@ -57,7 +57,7 @@ class Ui_MainWindow(object):
         self.label_2 = QLabel(self.centralwidget)
         self.label_2.setObjectName(u"label_2")
 
-        self.formLayout.setWidget(3, QFormLayout.SpanningRole, self.label_2)
+        self.formLayout.setWidget(3, QFormLayout.LabelRole, self.label_2)
 
         self.listWidget = QListWidget(self.centralwidget)
         self.listWidget.setObjectName(u"listWidget")
@@ -77,15 +77,25 @@ class Ui_MainWindow(object):
 
         self.formLayout.setWidget(5, QFormLayout.LabelRole, self.pushButtonListItem)
 
-        self.pushButtonTreeItem = QPushButton(self.centralwidget)
-        self.pushButtonTreeItem.setObjectName(u"pushButtonTreeItem")
-
-        self.formLayout.setWidget(7, QFormLayout.FieldRole, self.pushButtonTreeItem)
-
         self.pushButtonTreeItemFill = QPushButton(self.centralwidget)
         self.pushButtonTreeItemFill.setObjectName(u"pushButtonTreeItemFill")
 
         self.formLayout.setWidget(5, QFormLayout.FieldRole, self.pushButtonTreeItemFill)
+
+        self.pushButtonTreeItem = QPushButton(self.centralwidget)
+        self.pushButtonTreeItem.setObjectName(u"pushButtonTreeItem")
+
+        self.formLayout.setWidget(6, QFormLayout.FieldRole, self.pushButtonTreeItem)
+
+        self.pushButtonGetFile = QPushButton(self.centralwidget)
+        self.pushButtonGetFile.setObjectName(u"pushButtonGetFile")
+
+        self.formLayout.setWidget(7, QFormLayout.FieldRole, self.pushButtonGetFile)
+
+        self.pushButtonGetDir = QPushButton(self.centralwidget)
+        self.pushButtonGetDir.setObjectName(u"pushButtonGetDir")
+
+        self.formLayout.setWidget(8, QFormLayout.FieldRole, self.pushButtonGetDir)
 
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
@@ -108,7 +118,9 @@ class Ui_MainWindow(object):
         self.pushButtonTreeModel.setText(QCoreApplication.translate("MainWindow", u"\u043e\u0447\u0438\u0441\u0442\u0438\u0442\u044c Model Tree", None))
         self.label_2.setText(QCoreApplication.translate("MainWindow", u"Item based:", None))
         self.pushButtonListItem.setText(QCoreApplication.translate("MainWindow", u"\u043e\u0447\u0438\u0441\u0442\u0438\u0442\u044c Item List ", None))
-        self.pushButtonTreeItem.setText(QCoreApplication.translate("MainWindow", u"\u043e\u0447\u0438\u0441\u0442\u0438\u0442\u044c Item Tree", None))
         self.pushButtonTreeItemFill.setText(QCoreApplication.translate("MainWindow", u"\u0417\u0430\u043f\u043e\u043b\u043d\u0438\u0442\u044c Item Tree", None))
+        self.pushButtonTreeItem.setText(QCoreApplication.translate("MainWindow", u"\u043e\u0447\u0438\u0441\u0442\u0438\u0442\u044c Item Tree", None))
+        self.pushButtonGetFile.setText(QCoreApplication.translate("MainWindow", u"getFile", None))
+        self.pushButtonGetDir.setText(QCoreApplication.translate("MainWindow", u"getDir", None))
     # retranslateUi
 
