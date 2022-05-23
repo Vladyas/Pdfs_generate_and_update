@@ -26,7 +26,8 @@ class MainWindow(QMainWindow, probe_design.Ui_MainWindow):
         self.setupUi(self)  # Это нужно для инициализации нашего дизайна
         self.pushButtonTreeItemFill.clicked.connect(self._initTreeWidget)
         self.pushButtonTreeItem.clicked.connect(self._clearTreeWidget)
-        self.pushButtonGetFile.clicked.connect(self._getfile)
+        self.pushButtonGetFile.clicked.connect(self._get_file)
+        self.pushButtonGetDir.clicked.connect(self._get_dir)
 
     def _initTreeWidget(self):
         self.treeWidget.insertTopLevelItems(0, prepare_tree_items())
@@ -35,11 +36,19 @@ class MainWindow(QMainWindow, probe_design.Ui_MainWindow):
         while (self.treeWidget.topLevelItemCount() > 0):
             self.treeWidget.takeTopLevelItem(0)
 
-    def _getfile(self):
+    def _get_file(self):
         QFileDialog.FileMode = QFileDialog.ExistingFile
         fileName = QFileDialog.getOpenFileName(self,
                                                "Выберите PDF образец с полями ввода", "", "PDF Files (*.pdf)")
         print(fileName)
+
+    def _get_dir(self):
+        # QFileDialog.Option = QFileDialog.ShowDirsOnly
+        # dir_name = QFileDialog.getOpenFileName(self,
+        #                                        "Выберите директорию для генерации", "", "")
+        dir_name = QFileDialog.getExistingDirectory()
+        print(dir_name)
+
 
 
 def main():
