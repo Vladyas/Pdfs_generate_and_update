@@ -1,3 +1,9 @@
+'''
+python required modules installation:
+pip install --upgrade google-api-python-client google-auth-httplib2 google-auth-oauthlib
+pip install pyside6
+'''
+
 GENERATION_CHECK = {
 'creds':'Залогигились в Google Drive...',
 }

@@ -1,6 +1,6 @@
 import sys
 from PySide6.QtWidgets import QApplication, QWidget, QMainWindow, QMessageBox
-
+from get_google_data import get_creds
 import design
 
 
@@ -14,8 +14,9 @@ def show_warning_box(large_text):
 
 
 def login_google(window):
-    result = False
-    return result
+    window.gdata.creds = get_creds()
+
+    return True if window.gdata.creds else False
 
 def click_pattern_button():
     pass
