@@ -2,14 +2,12 @@ import sys
 
 from PySide6.QtWidgets import QApplication, QWidget, QMainWindow, QMessageBox
 from main_window import MainWindow
-
-
-
-
+from data_classes import GData
 
 def main():
     app = QApplication([])
-    window = MainWindow()
+    gdata = GData()
+    window = MainWindow(gdata)
     window.show()
     sys.exit(app.exec())
 
