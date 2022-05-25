@@ -48,7 +48,10 @@ class MainWindow(QMainWindow, design.Ui_MainWindow):
 
     def initTreeWidget(self):
         items = []
-        # self.gdata.creds
+
+        # clear treeWidget
+        while (self.treeWidget.topLevelItemCount() > 0):
+            self.treeWidget.takeTopLevelItem(0)
 
         for d in get_treeWidget_dict(self.gdata.creds, get_spreadsheets(self.gdata.creds)):
             item = QTreeWidgetItem([d['name'], d['sheet1'], d['owner']])
