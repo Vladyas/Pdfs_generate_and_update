@@ -29,14 +29,32 @@ def get_creds():
 
 
 def get_spreadsheets(creds):
-    service = build('drive', 'v3', credentials=creds)
-    results = service.files().list(q=f"mimeType='{SPREADSHEET_MIMETYPE}'",
-                                   pageSize=1000,
-                                   fields="files(id, name, ownedByMe, owners, trashed)").execute()
-    items = results.get('files', [])
-    # Exclude trashed spreadsheets
-    items = sorted(filter(lambda x: not x['trashed'], items), key=lambda x: x['name'])
+    try:
+        service = build('drive', 'v3', credentials=creds)
+        results = service.files().list(q=f"mimeType='{SPREADSHEET_MIMETYPE}'",
+                                       pageSize=1000,
+                                       fields="files(id, name, ownedByMe, owners, trashed)").execute()
+        items = results.get('files', [])
+        # Exclude trashed spreadsheets
+        items = sorted(filter(lambda x: not x['trashed'], items), key=lambda x: x['name'])
+    except:
+        print('Google Api exception при работе get_spreadsheets()')
     return items
+
+
+def get_sheet_range(creds, spreadsheet_id, range):
+    try:
+        service = build('sheets', 'v4', credentials=creds)
+        include_grid_data = False
+        request = service.spreadsheets().values().get(spreadsheetId=spreadsheet_id, range=range)
+        response = request.execute()
+        result = [x[0] for x in response['values'] if x]
+        result = set(result)
+    except:
+        print('Google Api exception при работе get_sheet_range()')
+
+        result = None
+    return result
 
 
 def get_treeWidget_dict(creds, spreadsheets):
@@ -46,7 +64,7 @@ def get_treeWidget_dict(creds, spreadsheets):
         for i in spreadsheets:
             sheets = service.get(spreadsheetId=i['id']).execute().get('sheets')
             d = {'name': i['name'], 'sheet1': sheets[0]['properties']['title'],
-                 'owner': i['owners'][0]['displayName'], 'id': i['id'], 'sheets':[]}
+                 'owner': i['owners'][0]['displayName'], 'id': i['id'], 'sheets': []}
             for s in sheets:
                 d['sheets'].append(s['properties']['title'])
             tree_data.append(d)
@@ -55,18 +73,10 @@ def get_treeWidget_dict(creds, spreadsheets):
     return tree_data
 
 
-def get_sheet_range(creds, spreadsheet_id, range):
-    service = build('sheets', 'v4', credentials=creds)
-    include_grid_data = False
-    request = service.spreadsheets().values().get(spreadsheetId=spreadsheet_id, range=range)
-    response = request.execute()
-    result = [x[0] for x in response['values'] if x]
-    return set(result)
-
 if __name__ == '__main__':
-    # print(get_spreadsheets(get_creds()))
-    c = get_creds()
+    pass
+    # c = get_creds()
     # pprint(get_treeWidget_dict(c, get_spreadsheets(c)))
-    spreadsheet_id = '1JPq0dXba_TYvfYdj_L6EqelChki4hi-es2dEyUDnK98'
-    ranges = 'Лист1!A2:A'
-    print(get_sheet_range(c, spreadsheet_id, ranges))
+    # spreadsheet_id = '1JPq0dXba_TYvfYdj_L6EqelChki4hi-es2dEyUDnK98'
+    # ranges = 'Лист1!A2:A'
+    # print(get_sheet_range(c, spreadsheet_id, ranges))

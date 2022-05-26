@@ -8,33 +8,25 @@ def generate_pdfs(gdata, progress_bar = None):
     strings_from_file = get_uniq_numbers(FILE_UNIQ_NUMBERS)
     ustrings = sorted(get_sheet_range(gdata.creds, gdata.spreadsheet_id, gdata.range) \
                       - strings_from_file)
-
     if len(ustrings) >= gdata.files_amount:
         if progress_bar:
-
             progress_bar.reset()
             progress_bar.setMinimum(1)
             progress_bar.setMaximum(gdata.files_amount+1)
-
         for count, i in enumerate(ustrings[:gdata.files_amount]):
             reader = PdfFileReader(gdata.pdf_pattern_name)
             writer = PdfFileWriter()
-
             pages = reader.pages
             page = pages[0]
-
             fields = reader.getFields()
             writer.addPage(page)
-
             with open(f"{gdata.output_dir}/{i}.pdf", "wb") as output_stream:
                 writer.updatePageFormFieldValues(page, {gdata.pdf_field: i})
                 writer.write(output_stream)
-
             if progress_bar: progress_bar.setValue(count+1)
 
         update_uniq_numbers(FILE_UNIQ_NUMBERS, set(ustrings[:gdata.files_amount]) | strings_from_file)
         if progress_bar: progress_bar.setValue(count + 2)
-
         return True, f"Сгенерировано файлов: {gdata.files_amount} "
     else:
         return False, "Число файлов больше количества уникальных номеров"
