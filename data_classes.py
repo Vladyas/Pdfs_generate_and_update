@@ -2,10 +2,10 @@ class GData:
     def __init__(self):
         self.creds = None
         self.spreadsheet_id = None
-        self.sheet_name=''
+        self.range=''
         self.pdf_pattern_name=''
         self.pdf_field = ''
-        self.uniq_vals=None
+        self.files_amount=None
         self.output_dir=''
 
 if __name__ == '__main__':

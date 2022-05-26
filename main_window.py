@@ -8,7 +8,7 @@ from PyPDF2 import PdfFileReader, PdfFileWriter
 
 import design
 from generate_pdfs import generate_pdfs
-
+from config import *
 
 class QTreeWidgetItem_withId(QTreeWidgetItem):
     def __init__(self, l, id):
@@ -109,8 +109,18 @@ class MainWindow(QMainWindow, design.Ui_MainWindow):
 
     def click_generate_button(self):
         if self._generate_check():
-            generate_pdfs(self)
+            self.gdata.spreadsheet_id = self.treeWidget.currentItem().id
+            self.gdata.range = self.treeWidget.currentItem().text(1) + RANGE
+            self.gdata.pdf_pattern_name = self.pdfPattern.text()
+            self.gdata.pdf_field = self.listWidgetPdfFields.currentItem().name
+            self.gdata.files_amount = int(self.copyNumber.text())
+            self.gdata.output_dir = self.outputDir.text()
 
+            generated, msg = generate_pdfs(self.gdata)
+            if not generated:
+                show_warning_box('Ошибка генерации', msg)
+            else:
+                print(msg)
     def click_pattern_button(self):
         dialog = QFileDialog(self)
         dialog.setFileMode(QFileDialog.ExistingFile)
