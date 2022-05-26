@@ -17,9 +17,9 @@ from PySide6.QtGui import (QAction, QBrush, QColor, QConicalGradient,
     QPainter, QPalette, QPixmap, QRadialGradient,
     QTransform)
 from PySide6.QtWidgets import (QApplication, QButtonGroup, QHeaderView, QLabel,
-    QLineEdit, QListView, QMainWindow, QProgressBar,
-    QPushButton, QSizePolicy, QTreeWidget, QTreeWidgetItem,
-    QVBoxLayout, QWidget)
+    QLineEdit, QListWidget, QListWidgetItem, QMainWindow,
+    QProgressBar, QPushButton, QSizePolicy, QTreeWidget,
+    QTreeWidgetItem, QVBoxLayout, QWidget)
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -113,28 +113,28 @@ class Ui_MainWindow(object):
 
         self.verticalLayout.addWidget(self.patternButton)
 
-        self.lineEdit = QLineEdit(self.centralwidget)
-        self.lineEdit.setObjectName(u"lineEdit")
-        self.lineEdit.setEnabled(False)
+        self.pdfPattern = QLineEdit(self.centralwidget)
+        self.pdfPattern.setObjectName(u"pdfPattern")
+        self.pdfPattern.setEnabled(False)
         sizePolicy4 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
         sizePolicy4.setHorizontalStretch(0)
         sizePolicy4.setVerticalStretch(0)
-        sizePolicy4.setHeightForWidth(self.lineEdit.sizePolicy().hasHeightForWidth())
-        self.lineEdit.setSizePolicy(sizePolicy4)
-        self.lineEdit.setMaximumSize(QSize(16777215, 16777215))
-        self.lineEdit.setFocusPolicy(Qt.ClickFocus)
+        sizePolicy4.setHeightForWidth(self.pdfPattern.sizePolicy().hasHeightForWidth())
+        self.pdfPattern.setSizePolicy(sizePolicy4)
+        self.pdfPattern.setMaximumSize(QSize(16777215, 16777215))
+        self.pdfPattern.setFocusPolicy(Qt.ClickFocus)
 
-        self.verticalLayout.addWidget(self.lineEdit)
+        self.verticalLayout.addWidget(self.pdfPattern)
 
         self.label = QLabel(self.centralwidget)
         self.label.setObjectName(u"label")
 
         self.verticalLayout.addWidget(self.label)
 
-        self.listView = QListView(self.centralwidget)
-        self.listView.setObjectName(u"listView")
+        self.listWidgetPdfFields = QListWidget(self.centralwidget)
+        self.listWidgetPdfFields.setObjectName(u"listWidgetPdfFields")
 
-        self.verticalLayout.addWidget(self.listView)
+        self.verticalLayout.addWidget(self.listWidgetPdfFields)
 
         self.label_copyNumber = QLabel(self.centralwidget)
         self.label_copyNumber.setObjectName(u"label_copyNumber")
@@ -162,13 +162,13 @@ class Ui_MainWindow(object):
 
         self.verticalLayout.addWidget(self.dirButton)
 
-        self.lineEdit_2 = QLineEdit(self.centralwidget)
-        self.lineEdit_2.setObjectName(u"lineEdit_2")
-        self.lineEdit_2.setEnabled(False)
-        self.lineEdit_2.setMaximumSize(QSize(16777215, 16777215))
-        self.lineEdit_2.setFocusPolicy(Qt.ClickFocus)
+        self.outputDir = QLineEdit(self.centralwidget)
+        self.outputDir.setObjectName(u"outputDir")
+        self.outputDir.setEnabled(False)
+        self.outputDir.setMaximumSize(QSize(16777215, 16777215))
+        self.outputDir.setFocusPolicy(Qt.ClickFocus)
 
-        self.verticalLayout.addWidget(self.lineEdit_2)
+        self.verticalLayout.addWidget(self.outputDir)
 
         self.generateButton = QPushButton(self.centralwidget)
         self.buttonGroup.addButton(self.generateButton)
@@ -207,8 +207,7 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
         QWidget.setTabOrder(self.loginButton, self.treeWidget)
         QWidget.setTabOrder(self.treeWidget, self.patternButton)
-        QWidget.setTabOrder(self.patternButton, self.listView)
-        QWidget.setTabOrder(self.listView, self.copyNumber)
+        QWidget.setTabOrder(self.patternButton, self.copyNumber)
         QWidget.setTabOrder(self.copyNumber, self.dirButton)
         QWidget.setTabOrder(self.dirButton, self.generateButton)
         QWidget.setTabOrder(self.generateButton, self.closeButton)

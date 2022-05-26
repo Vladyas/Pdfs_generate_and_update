@@ -55,11 +55,15 @@ def get_treeWidget_dict(creds, spreadsheets):
     return tree_data
 
 
-def get_sheet_range(spreadsheet_id, range):
-    pass
-
+def get_sheet_range(creds, spreadsheet_id, range):
+    service = build('sheets', 'v4', credentials=creds).spreadsheets()
+    include_grid_data = False
+    request = service.spreadsheets().values().get(spreadsheetId=spreadsheet_id, range=range)
+    response = set(request.execute())
+    return response
 
 if __name__ == '__main__':
     # print(get_spreadsheets(get_creds()))
     c = get_creds()
     pprint(get_treeWidget_dict(c, get_spreadsheets(c)))
+
