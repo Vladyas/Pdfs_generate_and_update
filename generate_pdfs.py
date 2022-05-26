@@ -4,13 +4,19 @@ from get_google_data import get_sheet_range
 from PyPDF2 import PdfFileReader, PdfFileWriter
 
 
-def generate_pdfs(gdata):
+def generate_pdfs(gdata, progress_bar = None):
     strings_from_file = get_uniq_numbers(FILE_UNIQ_NUMBERS)
     ustrings = sorted(get_sheet_range(gdata.creds, gdata.spreadsheet_id, gdata.range) \
                       - strings_from_file)
 
     if len(ustrings) >= gdata.files_amount:
-        for i in ustrings[:gdata.files_amount]:
+        if progress_bar:
+
+            progress_bar.reset()
+            progress_bar.setMinimum(1)
+            progress_bar.setMaximum(gdata.files_amount+1)
+
+        for count, i in enumerate(ustrings[:gdata.files_amount]):
             reader = PdfFileReader(gdata.pdf_pattern_name)
             writer = PdfFileWriter()
 
@@ -24,7 +30,10 @@ def generate_pdfs(gdata):
                 writer.updatePageFormFieldValues(page, {gdata.pdf_field: i})
                 writer.write(output_stream)
 
+            if progress_bar: progress_bar.setValue(count+1)
+
         update_uniq_numbers(FILE_UNIQ_NUMBERS, set(ustrings[:gdata.files_amount]) | strings_from_file)
+        if progress_bar: progress_bar.setValue(count + 2)
 
         return True, f"Сгенерировано файлов: {gdata.files_amount} "
     else:

@@ -116,7 +116,7 @@ class MainWindow(QMainWindow, design.Ui_MainWindow):
             self.gdata.files_amount = int(self.copyNumber.text())
             self.gdata.output_dir = self.outputDir.text()
 
-            generated, msg = generate_pdfs(self.gdata)
+            generated, msg = generate_pdfs(self.gdata, self.progressBar)
             if not generated:
                 show_warning_box('Ошибка генерации', msg)
             else:
