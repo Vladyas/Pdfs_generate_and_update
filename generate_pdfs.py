@@ -30,3 +30,7 @@ def generate_pdfs(gdata, progress_bar = None):
         return True, f"Сгенерировано файлов: {gdata.files_amount} "
     else:
         return False, "Число файлов больше количества уникальных номеров"
+if __name__ == '__main__':
+    pass
+
+

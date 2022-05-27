@@ -48,9 +48,12 @@ def get_sheet_range(creds, spreadsheet_id, range):
         include_grid_data = False
         request = service.spreadsheets().values().get(spreadsheetId=spreadsheet_id, range=range)
         response = request.execute()
-        result = [x[0] for x in response['values'] if x]
-        result = set(result)
-    except:
+        if 'values' in response.keys():
+            result = [x[0] for x in response['values'] if x]
+            result = set(result)
+        else:
+            result = set()
+    except :
         print('Google Api exception при работе get_sheet_range()')
 
         result = None
