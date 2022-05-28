@@ -11,6 +11,8 @@ from config import *
 
 
 def get_creds():
+    """ логинится в Google
+     и (если не закомментено) сохраняет token в файл для переиспользования"""
     creds = None
     if os.path.exists(TOKEN):
         creds = Credentials.from_authorized_user_file(TOKEN, SCOPES)
@@ -22,13 +24,15 @@ def get_creds():
                 APP_CREDENTIALS_FILE, SCOPES)
             creds = flow.run_local_server(port=0)
         # Save the credentials for the next run
-        with open(TOKEN, 'w') as token:
-            token.write(creds.to_json())
+        # with open(TOKEN, 'w') as token:
+        #     token.write(creds.to_json())
 
     return creds
 
 
 def get_spreadsheets(creds):
+    """ Возвращает отсортировааный список Spreadsheets залогиненного пользователя
+    за исключением удаленых (их тоже видно в корзине)"""
     try:
         service = build('drive', 'v3', credentials=creds)
         results = service.files().list(q=f"mimeType='{SPREADSHEET_MIMETYPE}'",
@@ -38,6 +42,7 @@ def get_spreadsheets(creds):
         # Exclude trashed spreadsheets
         items = sorted(filter(lambda x: not x['trashed'], items), key=lambda x: x['name'])
     except:
+        # TODO прввильно обрабоать Google API exceptions
         print('Google Api exception при работе get_spreadsheets()')
     return items
 
@@ -54,13 +59,19 @@ def get_sheet_range(creds, spreadsheet_id, range):
         else:
             result = set()
     except :
+        # TODO написать правильную обработку Google API exceptions
         print('Google Api exception при работе get_sheet_range()')
-
         result = None
     return result
 
 
 def get_treeWidget_dict(creds, spreadsheets):
+    """Возвращает словарь для инициализации TreeWidget.
+    Кроме 3-х ключей для показываемых колонок TreeWidget ещё + 2 служебных ключа:
+    "id" - google spreadseet id, будет продублирован в каждом QItem для удобства
+    "sheets" - содержит список имён spreadsheet листов
+    """
+    # TODO написать обработку Google API exceptions
     tree_data = []
     if spreadsheets:
         service = build('sheets', 'v4', credentials=creds).spreadsheets()
@@ -73,6 +84,7 @@ def get_treeWidget_dict(creds, spreadsheets):
             tree_data.append(d)
     else:
         tree_data = None
+
     return tree_data
 
 

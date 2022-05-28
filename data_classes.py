@@ -8,6 +8,7 @@ class GData:
         self.files_amount=None
         self.output_dir=''
 
+
 if __name__ == '__main__':
     x = GData()
     print(x.__dir__())

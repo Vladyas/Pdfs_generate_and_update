@@ -17,6 +17,9 @@ def generate_pdfs(gdata, progress_bar = None):
             reader = PdfFileReader(gdata.pdf_pattern_name)
             writer = PdfFileWriter()
             pages = reader.pages
+            # TODO написать генерацию для всех PDF страниц а не только для 1-ой.
+            #  Кстати, если поле не на первой стрранице, придётся переписывать ListWidget (добавить инфо о странице)
+            #  и потом учитывать это при генерации, на какой странице вставлять данные
             page = pages[0]
             fields = reader.getFields()
             writer.addPage(page)

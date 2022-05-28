@@ -10,6 +10,7 @@ import design
 from generate_pdfs import generate_pdfs
 from config import *
 
+
 class QTreeWidgetItem_withId(QTreeWidgetItem):
     def __init__(self, l, id):
         super(QTreeWidgetItem_withId, self).__init__(l)
@@ -35,11 +36,8 @@ def login_google(window):
     window.gdata.creds = get_creds()
     if window.gdata.creds:
         window.initTreeWidget()
+    window.activateWindow()
     return True if window.gdata.creds else False
-
-
-def click_dir_button():
-    pass
 
 
 class MainWindow(QMainWindow, design.Ui_MainWindow):
@@ -121,6 +119,7 @@ class MainWindow(QMainWindow, design.Ui_MainWindow):
                 show_warning_box('Ошибка генерации', msg)
             else:
                 print(msg)
+
     def click_pattern_button(self):
         dialog = QFileDialog(self)
         dialog.setFileMode(QFileDialog.ExistingFile)
