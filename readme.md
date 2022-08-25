@@ -22,7 +22,9 @@ and press **Generate** button.
 Python 3.9; PySide6
 
 A user should register the app by https://console.cloud.google.com/apis/credentials in order to allow the app communicate with Google Drive services.
-As result, **credentials.json** file with user Google API secrets and API keys should be saved to the app directory before the first start.
+- Register the app as Desktop app 
+- Download API credentials in json file (with very long name) and rename to **credentials.json**
+- Save **credentials.json** to the app directory before the first start.
 
 ### License
 
