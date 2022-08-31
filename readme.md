@@ -5,9 +5,9 @@ The project is one window desktop app done with PySide6 and allows a user:
 - Login to his Google Drive account
 - Select a specific Google Sheet file and worksheet in it.
 - Select a template PDF file, which has a set of pdf fields. 
-- Select on of the fields 
+- Select one of the fields 
 - Select a directory for PDF files generation
-- Input a number PDF files which should be generated
+- Input the amount of PDF files, which should be generated
 
 and press **Generate** button.
 ### What will the app do if press **Generate** button?
