@@ -13,7 +13,7 @@ and press **Generate** button.
 ### What will the app do if press **Generate** button?
 - Finds A column in the selected google worksheet
 - Prepares a list of uniq values from the selected column. The list will exclude all values, which were used in previous generations. The list of used values is stored in **uniq_numbers.csv** file in the project directory.
-- Generates specified number PDF files as:
+- Generates specified amount of PDF files as:
   * PDF file name is constructed as uniq value from the list + '.pdf'
   * The selected PDF field is initialized with the uniq value used for the file name 
 
